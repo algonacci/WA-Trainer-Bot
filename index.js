@@ -5,7 +5,10 @@ const { localQuotes } = require("./quotes"); // Adjust the path as necessary
 const responses = ["👋 Hello!", "Hi there!", "Hey!", "Greetings!", "Hello, how can I assist you?"];
 
 // Array of recipient IDs
-const recipientIds = ["6282125609413@c.us", "6285716690580@c.us", "628992490946@c.us", "6281215146102@c.us", "6281572697825@c.us", "628567350704@c.us"];
+const recipientIds = ["6282125609413@c.us"];
+
+// Array of alternative greetings
+const alternativeGreetings = ["hello", "halo", "hey", "what's up?", "hi", "howdy", "greetings", "yo", "good day", "hi there", "how's it going?", "sup", "bonjour", "hola", "namaste", "good morning", "good afternoon", "good evening", "hiya", "how do you do?"];
 
 wa.create({
   sessionId: "COVID_HELPER",
@@ -22,7 +25,8 @@ wa.create({
 
 function start(client) {
   client.onMessage(async (message) => {
-    if (message.body === "Hi") {
+    // Check if the message is a greeting
+    if (alternativeGreetings.includes(message.body.toLowerCase())) {
       // Randomly select a response
       const randomIndex = Math.floor(Math.random() * responses.length);
       const response = responses[randomIndex];
